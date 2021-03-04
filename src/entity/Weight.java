@@ -1,25 +1,26 @@
 package entity;
 
 public class Weight {
-	private int weightsId;
+	private int id;
 	private int userId;
 	private String measureDate;
-	private double weight; 
+	private int weight; 
 	
-	public Weight (int weightsID, int userId, String measureDate, double weight) {
-		this.setWeightsId (weightsId);
+	public Weight (int id, int userId, String measureDate, int weight) {
+		this.setWeightsId (id);
 		this.setUserId (userId);
 		this.setMeasureDate (measureDate);
 		this.setWeight (weight);
 		
 	}
 
+
 	public int getWeightsId() {
-		return weightsId;
+		return id;
 	}
 
-	public void setWeightsId(int weightsID) {
-		this.weightsId = weightsID;
+	public void setWeightsId(int id) {
+		this.id = id;
 	}
 
 	public int getUserId() {
@@ -42,8 +43,12 @@ public class Weight {
 		return weight;
 	}
 
-	public void setWeight(double weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
+
+
+
+	
 }
 

@@ -12,7 +12,7 @@ import entity.User;
 public class Menu {
 	
 		private Scanner scanner = new Scanner(System.in);
-		private String[] menuOpts = {"Display weight log", "Enter name", "Enter weight", "Enter date", "Update weight", "Delete entry"};
+		private String[] menuOpts = {"Display weight log", "Enter name", "Enter weight and date", "Update weight", "Delete user"};
 		private Users_dao usersDao = new Users_dao();
 		private Weights_dao weightsDao = new Weights_dao();
 		
@@ -24,8 +24,8 @@ public class Menu {
 		}
 		
 		private void displayLog()throws SQLException{
-			List <User> log = usersDao.displayLog();
-			for(User u : log) {
+			List <User> users = usersDao.displayLog();
+			for(User u : users) {
 				System.out.println(u.getid() + " - " + u.getName());	
 			}
 		}
@@ -35,27 +35,50 @@ public class Menu {
 			String name = scanner.nextLine();
 			usersDao.enterNewName (name);
 		}
-		
+	
 		private void enterWeight() throws SQLException{
 			String measureDate = "";
-
 			System.out.println("User ID: ");
 			int userId = scanner.nextInt();
 			do {
 				System.out.print("Enter Weigh In Date");
 				measureDate= scanner.nextLine();
 				if(measureDate.isEmpty()) {
-					System.out.println("Weigh in date cannot be empty. Please try again...");
+					System.out.println("\nWeigh in date cannot be empty. Please try again...");
 				}
 				
 			}while(measureDate.isEmpty());
 			
 			System.out.println("Enter Weight: ");
-			int weight = scanner.nextInt();
+			String weight = scanner.nextLine();
 			
 			weightsDao.enterNewWeight (userId, measureDate, weight);
 		}
 		
+		private void updateWeight()throws SQLException {
+			System.out.println("Enter ID of user to update log: ");
+			String nl = scanner.nextLine()	;
+			Integer id = null;
+			try {
+				id = Integer.parseInt(nl);
+			}catch (NumberFormatException e) {
+				System.out.println("Please enter a number!");
+				return;
+			}
+			if (id != null) {
+					System.out.println("Enter weight");
+					String weight = scanner.nextLine();
+				if(!weight.isEmpty()) {
+					weightsDao.updateWeight (id,weight);
+				}
+			}
+		}
+		
+		private void deleteUser() throws SQLException{
+			System.out.println("Enter ID to delete: ");
+			int id = Integer.parseInt(scanner.nextLine());
+			usersDao.deleteUserById(id);
+		}
 		
 		public void start() {
 			String selection = "";
@@ -72,6 +95,10 @@ public class Menu {
 						break;
 					case "3": enterWeight();
 						break;
+					case "4": updateWeight();
+						break;
+					case "5": deleteUser();
+						break;
 					}
 					
 				} catch (SQLException e) {
@@ -81,11 +108,11 @@ public class Menu {
 				if (!selection.equals("-1")) {
 					System.out.println("Press enter to continue...");
 					scanner.nextLine();
-				}
-				
+				}	
 			
 		} while (!selection.equals("-1"));
 		
 		
 	}
+
 }

@@ -13,6 +13,7 @@ import entity.User;
 public class Users_dao {
 	private Connection connection;
 	private final String ADD_NAME = "INSERT INTO users (name) VALUES (?)";
+	private final String DELETE_USER = "DELETE from users WHERE id = ?";
 	
 	public Users_dao() {
 		connection = DBConnection.getInstance().getConnection();
@@ -23,6 +24,8 @@ public class Users_dao {
 		
 		Statement s = connection.createStatement();
 		ResultSet rs = s.executeQuery("select * from users");
+		//u.id, u.name, w.userId, w.measureDate, w.weight from users u "
+		//+ "INNER JOIN weights w ON u.userId = w.userId
 		
 		while (rs.next()) {
 			out.add(new User (rs.getInt("id"), rs.getString("name")));
@@ -35,8 +38,10 @@ public class Users_dao {
 		ps.setString(1, name);
 		ps.executeUpdate();
 	}
-
-
-
 	
+	public void deleteUserById(int id) throws SQLException{
+		PreparedStatement ps = connection.prepareStatement(DELETE_USER);
+		ps.setInt(1, id);
+		ps.executeUpdate();
+	}
 }

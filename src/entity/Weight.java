@@ -4,14 +4,13 @@ public class Weight {
 	private int id;
 	private int userId;
 	private String measureDate;
-	private int weight; 
+	private String weight; 
 	
-	public Weight (int id, int userId, String measureDate, int weight) {
+	public Weight (int id, int userId, String measureDate, String weight) {
 		this.setWeightsId (id);
 		this.setUserId (userId);
 		this.setMeasureDate (measureDate);
 		this.setWeight (weight);
-		
 	}
 
 
@@ -39,11 +38,11 @@ public class Weight {
 		this.measureDate = measureDate;
 	}
 
-	public double getWeight() {
+	public String getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 

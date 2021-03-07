@@ -28,9 +28,9 @@ private final String UPDATE_ENTRY = "UPDATE weights SET weight=? WHERE id=?";
 		ps.executeUpdate();
 	}
 	
-//	public void close() {
-//		DBConnection.getInstance().closeConnection();
-//	}
+	public void close() {
+		DBConnection.getInstance().closeConnection();
+	}
 	
 
 	

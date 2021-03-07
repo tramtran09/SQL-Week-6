@@ -93,7 +93,7 @@ public class Menu {
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
-					//end();
+					end();
 				}
 				if (!selection.equals("-1")) {
 					System.out.println("Press enter to continue...");
@@ -102,12 +102,12 @@ public class Menu {
 			
 		} while (!selection.equals("-1"));
 		
-		//end();
+		end();
 	}
-//	public void end() {
-//		System.out.println("Goodbye!");
-//		scanner.close();
-//		usersDao.close();
-//		weightsDao.close();
-//	}
+	public void end() {
+		System.out.println("Goodbye!");
+		scanner.close();
+		usersDao.close();
+		weightsDao.close();
+	}
 }

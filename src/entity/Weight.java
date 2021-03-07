@@ -46,8 +46,5 @@ public class Weight {
 		this.weight = weight;
 	}
 
-
-
-	
 }
 

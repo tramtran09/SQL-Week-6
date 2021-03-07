@@ -1,18 +1,17 @@
 package application;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 import dao.Users_dao;
 import dao.Weights_dao;
-import entity.User;
+
 
 
 public class Menu {
 	
 		private Scanner scanner = new Scanner(System.in);
-		private String[] menuOpts = {"Display weight log", "Enter name", "Enter weight and date", "Update weight", "Delete user"};
+		private String[] menuOpts = {"Enter name", "Enter weight and date", "Update weight", "Delete user"};
 		private Users_dao usersDao = new Users_dao();
 		private Weights_dao weightsDao = new Weights_dao();
 		
@@ -20,13 +19,6 @@ public class Menu {
 			System.out.println("-----------");
 			for (int i=0; i < menuOpts.length; i++) {
 				System.out.println((i+1) + ")" + menuOpts[i]);
-			}
-		}
-		
-		private void displayLog()throws SQLException{
-			List <User> users = usersDao.displayLog();
-			for(User u : users) {
-				System.out.println(u.getid() + " - " + u.getName());	
 			}
 		}
 		
@@ -89,21 +81,19 @@ public class Menu {
 				
 				try {
 					switch(selection) {
-					case "1": displayLog();
+					case "1": enterName();
 						break;
-					case "2": enterName();
+					case "2": enterWeight();
 						break;
-					case "3": enterWeight();
+					case "3": updateWeight();
 						break;
-					case "4": updateWeight();
-						break;
-					case "5": deleteUser();
+					case "4": deleteUser();
 						break;
 					}
 					
 				} catch (SQLException e) {
 					e.printStackTrace();
-					
+					//end();
 				}
 				if (!selection.equals("-1")) {
 					System.out.println("Press enter to continue...");
@@ -112,7 +102,12 @@ public class Menu {
 			
 		} while (!selection.equals("-1"));
 		
-		
+		//end();
 	}
-
+//	public void end() {
+//		System.out.println("Goodbye!");
+//		scanner.close();
+//		usersDao.close();
+//		weightsDao.close();
+//	}
 }

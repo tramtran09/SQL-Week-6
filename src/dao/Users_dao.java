@@ -2,13 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-import entity.User;
+import java.sql.SQLException;
+
+
 
 public class Users_dao {
 	private Connection connection;
@@ -17,20 +14,6 @@ public class Users_dao {
 	
 	public Users_dao() {
 		connection = DBConnection.getInstance().getConnection();
-	}
-	
-	public List<User> displayLog() throws SQLException{
-		List<User> out = new ArrayList<>();
-		
-		Statement s = connection.createStatement();
-		ResultSet rs = s.executeQuery("select * from users");
-		//u.id, u.name, w.userId, w.measureDate, w.weight from users u "
-		//+ "INNER JOIN weights w ON u.userId = w.userId
-		
-		while (rs.next()) {
-			out.add(new User (rs.getInt("id"), rs.getString("name")));
-		}
-		return out;
 	}
 	
 	public void enterNewName(String name) throws SQLException{
@@ -44,4 +27,8 @@ public class Users_dao {
 		ps.setInt(1, id);
 		ps.executeUpdate();
 	}
+	public void close() {
+		DBConnection.getInstance().closeConnection();
+	}
+
 }
